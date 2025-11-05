@@ -12,10 +12,10 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\DB;  
-use Illuminate\Database\QueryException;
 
 class User extends Authenticatable
 {
+    
     use  HasFactory, HasApiTokens ,  Notifiable, SoftDeletes, HasUuids;
 
     /**
@@ -82,9 +82,9 @@ class User extends Authenticatable
         return $this->hasMany(Compte::class, 'user_id', 'id');
     }
 
-    // public function transactions() {
-    //     return $this->hasManyThrough(Transaction::class, Compte::class, 'user_id', 'compte_id', 'id', 'id');
-    // }
+    public function transactions() {
+        return $this->hasManyThrough(Transaction::class, Compte::class, 'user_id', 'compte_id', 'id', 'id');
+    }
 
     public function isClient(): bool {
         return $this->client()->exists();

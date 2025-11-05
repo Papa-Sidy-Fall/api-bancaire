@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Models\Compte;
-use App\Models\Transaction;
 use Illuminate\Support\Facades\Schema;
 
 class UserSeeder extends Seeder

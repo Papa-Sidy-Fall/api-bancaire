@@ -9,6 +9,7 @@ use App\Http\Resources\MetaRessource;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use App\Exceptions\CompteNotFoundException;
 
 
 class CompteController extends Controller
@@ -58,4 +59,17 @@ class CompteController extends Controller
             return $this->errorResponse('Erreur lors de la récupération des comptes: ' . $e->getMessage(), 500);
         }
     }
+  public function show(Request $request, $id)
+   {
+       $user = Auth::user();
+
+       if($user->isAdmin()){
+           $compte = Compte::find($id);
+       }else{
+           $compte = Compte::where('id', $id)->where('user_id', $user->id)->first();
+       }
+
+
+       return $this->successResponse(new CompteRessource($compte), 'Compte récupéré avec succès', 1, $user->id);
+   }
 }
