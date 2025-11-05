@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\GlobaleScope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use PhpParser\Builder\Class_;
 
 class Compte extends Model
 {
@@ -44,6 +46,7 @@ class Compte extends Model
                 $compte->numero_compte = 'ACC-' . strtoupper(Str::random(10));
             }
         });
+        // static::addGlobalScope(new GlobaleScope());
     }
     public function User(){
         return $this->belongsTo(User::class, 'user_id','id');

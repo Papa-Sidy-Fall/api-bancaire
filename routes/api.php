@@ -20,6 +20,8 @@ Route::prefix('v1')->group(function () {
     Route::post('/login',[AuthController::class,'login']);
     Route::middleware('auth:api')->group(function () {
         Route::get('/comptes',[CompteController::class,'index']);
+        Route::get('/comptes/{id}',[CompteController::class,'show']);
+        
     });
 
 });
