@@ -14,16 +14,12 @@ class CompteRessource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $depot = $this->depot_sum ?? 0;
-        $retrait = $this->retrait_sum ?? 0;
-        $solde = $depot - $retrait;
-
         return [
             'id' => $this->id,
             'numeroCompte' => $this->numero_compte,
             'titulaire' => $this->titulaire,
             'type' => $this->type,
-            'solde' => (float) $solde,
+            'solde' => (float) $this->solde,
             'devise' => $this->devise,
             'dateCreation' => $this->created_at,
             'statut' => $this->statut,

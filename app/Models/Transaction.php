@@ -21,3 +21,4 @@ class Transaction extends Model
         return $this->belongsTo(Compte::class, 'compte_id', 'id');
     }
 }
+

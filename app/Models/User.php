@@ -82,9 +82,6 @@ class User extends Authenticatable
         return $this->hasMany(Compte::class, 'user_id', 'id');
     }
 
-    // public function transactions() {
-    //     return $this->hasManyThrough(Transaction::class, Compte::class, 'user_id', 'compte_id', 'id', 'id');
-    // }
 
     public function isClient(): bool {
         return $this->client()->exists();
