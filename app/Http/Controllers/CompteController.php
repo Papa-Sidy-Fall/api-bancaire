@@ -72,4 +72,32 @@ class CompteController extends Controller
 
        return $this->successResponse(new CompteRessource($compte), 'Compte récupéré avec succès', 1, $user->id);
    }
+  public function store(Request $request)
+{
+    $user = Auth::user();
+
+    if (!$user) {
+        return $this->errorResponse('Non autorisé', 401);
+    }
+
+    // On valide les données imbriquées
+    $data = $request->validate([
+        'client.titulaire' => ['required', 'string', 'max:255'],
+        'type' => ['required', 'in:epargne,cheque'],
+        'devise' => ['required', 'string', 'max:3'],
+    ]);
+
+    $compte = Compte::create([
+        'titulaire' => $data['client']['titulaire'],
+        'type' => $data['type'],
+        'devise' => $data['devise'],
+        'user_id' => $user->id,
+        'statut' => 'actif',
+        'derniere_modification' => now(),
+        'version' => 1,
+    ]);
+
+    return $this->successResponse(new CompteRessource($compte), 'Compte créé avec succès', 1, $user->id);
+}
+
 }

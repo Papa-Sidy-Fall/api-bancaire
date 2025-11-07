@@ -51,6 +51,9 @@ class Compte extends Model
     public function User(){
         return $this->belongsTo(User::class, 'user_id','id');
     }
+    public function Client(){
+        return $this->belongsToMany(Client::class);
+    }
 
     public function scopeFiltrerComptes(Builder $query, $filters = [], $user = null)
 {
